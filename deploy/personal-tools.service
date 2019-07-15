@@ -4,9 +4,10 @@ After=network.target
 
 [Service]
 Environment=DJANGO_SETTINGS_MODULE=personaltools.settings.production
-User=
-RuntimeDirectory=
-WorkingDirectory=/home/user/personaltools/venv/bin/gunicorn -c deploy/gunicorn.py personaltools.wsgi
+User=user
+RuntimeDirectory=personaltools
+WorkingDirectory=/home/user/personaltools/
+ExecStart=/home/user/personaltools/venv/bin/gunicorn -c deploy/gunicorn.py personaltools.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 
