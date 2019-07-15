@@ -1,0 +1,80 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+  <h1>Trip: {{ trip.name }}</h1>
+
+  {% include 'mileage/nav.html' %}
+
+  <div class="row">
+    <div class="col-md-9">
+      <table class="table">
+        <thead>
+          <td>Start Time</td>
+          <td>Start Miles</td>
+          <td>End Time</td>
+          <td>End Miles</td>
+          <td>Total</td>
+          <td></td>
+        </thead>
+        {% for leg in trip.leg_set.all %}
+        <tr>
+          <td>
+            {{ leg.start_date }}
+          </td>
+          <td>
+            {{ leg.start_miles }}
+          </td>
+          <td>
+            {{ leg.end_date }}
+          </td>
+          <td>
+            {{ leg.end_miles }}
+          </td>
+          <td>
+            {{ leg.get_total }}
+          </td>
+          <td>
+              <a href="{% url 'leg-edit' leg.id %}" class="btn btn-outline-secondary btn-small">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="col-md-3">
+      <h2>Add</h2>
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.start_date.errors }}
+            <label for="{{ form.start_date.id_for_label }}">Start time</label>
+            <input type="text" class="form-control" name="{{ form.start_date.html_name }}" id="{{ form.start_date.id_for_label }}">
+        </div>
+        <div class="form-group">
+            {{ form.start_miles.errors }}
+            <label for="{{ form.start_miles.id_for_label }}">Start miles</label>
+            <input type="text" class="form-control" name="{{ form.start_miles.html_name }}" id="{{ form.start_miles.id_for_label }}">
+        </div>
+        <input type="submit" value="Add Leg" class="btn btn-primary">
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+let dtStart = document.querySelector('#id_start_date');
+let now = new Date();
+
+dtStart.value = `${now.toLocaleDateString()} ${now.toLocaleTimeString('en-US', { hour12: false })}`;
+</script>
+
+{% endblock %}

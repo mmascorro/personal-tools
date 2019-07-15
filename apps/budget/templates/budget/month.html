@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+
+{% block title %}Budget{% endblock %}
+{% block css %}
+<link href="{% static 'budget/css/budget.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_css %}budget home{% endblock %}
+
+{% block content %}
+<h1>month detail</h1>
+
+{% include 'budget/nav.html' %}
+
+
+<form >
+    <select name="month" id="month-select">
+        {% for month in months %}
+        <option {% if month|date:'Y-m' == year_month %}selected{% endif %}>{{ month|date:'Y-m'}}</option>
+        {% endfor %}
+
+    </select>
+    <button id="month-select-button">Change</button>
+</form>
+
+<div class="categories">
+    {% for item_type in item_types %}
+    <div class="category">
+        <h2>{{ item_type.name }}</h2>
+        <p><b>{{ item_type.sum }}</b></p>
+        {% for item in item_type.items %}
+        <p>{{ item }}</p>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+document.getElementById('month-select-button').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let selectedMonth = document.getElementById('month-select').value;
+
+
+    location.href = `/budget/month/${selectedMonth}`
+})
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+h1 {
+    color: red;
+}
+
+.categories {
+    display: flex;
+    
+}
+
+.category {
+    width: 100px;
+}
+
+select,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="text"] {
+    font-size: 16px;
+}
+
+
+body.budget.home form {
+
+    display: flex;
+    flex-direction: column;
+
+}
+body.budget.home form > * {
+
+    margin-bottom: 20px;
+}
+
+body.budget.home form > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+body.budget.home form > div > select,
+body.budget.home form > div > input[type="text"] {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+    body.budget.home form {
+    
+        width: 400px;
+    }
+}

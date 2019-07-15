@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<h1>Edit</h1>
+
+{% include 'mileage/nav.html' %}
+
+
+<a href="{% url 'trip-detail' pk=object.id %}" class="btn btn-link">Back to Trip</a>
+<div class="row">
+  <div class="col-md-5">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.errors }}
+      <div class="form-group">
+        <label for="{{ form.start_date.id_for_label }}">Star Time</label>
+        <input type="text" id="{{ form.start_date.id_for_label }}" name="start_date" value="{{ form.start_date.value|date:'Y-m-d H:i' }}" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="{{ form.start_miles.id_for_label }}">Start Miles</label>
+        <input type="text" id="{{ form.start_miles.id_for_label }}" name="start_miles" value="{{ form.start_miles.value }}" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.end_date.id_for_label }}">End Time</label>
+        <div class="input-group">
+          <input type="text" id="{{ form.end_date.id_for_label }}" name="end_date" value="{{ form.end_date.value|date:'Y-m-d H:i' }}" class="form-control">
+          <span class="input-group-btn">
+            <button id="current-datetime-btn" class="btn btn-primary">Now</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.end_miles.id_for_label }}">End Miles</label>
+        <input type="text" id="{{ form.end_miles.id_for_label }}" name="end_miles" value="{{ form.end_miles.value|default_if_none:'' }}" class="form-control">
+      </div>
+      <input type="submit" value="Update" class="btn btn-primary">
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+let nowButton = document.getElementById('current-datetime-btn');
+let end_dateField = document.getElementById('id_end_date');
+
+nowButton.addEventListener('click',function(e){
+  e.preventDefault();
+  let now = new Date();
+  let currentTime = `${now.getHours()}:${now.getMinutes()}`;
+  end_dateField.value = `${now.toLocaleDateString()} ${currentTime}`;
+})
+
+</script>
+{% endblock %}

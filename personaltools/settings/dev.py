@@ -1,0 +1,30 @@
+from .base import *
+
+
+DEBUG = True
+
+INSTALLED_APPS += [
+    'debug_toolbar',
+]
+
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+] +  MIDDLEWARE
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'personaltools',
+        'USER': 'personaltools',
+        'PASSWORD': 'personaltools',
+        'HOST': '192.168.1.5',
+        'PORT': '5432',
+    }
+}
+
+SESSION_COOKIE_AGE = 31536000

@@ -1,0 +1,14 @@
+[Unit]
+Description=personal tools
+After=network.target
+
+[Service]
+Environment=DJANGO_SETTINGS_MODULE=personaltools.settings.production
+User=
+RuntimeDirectory=
+WorkingDirectory=/home/user/personaltools/venv/bin/gunicorn -c deploy/gunicorn.py personaltools.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

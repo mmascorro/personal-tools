@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<h1>Mileage</h1>
+
+{% include 'mileage/nav.html' %}
+
+<a href="{% url 'trip-create' %}" class="btn btn-primary">New Trip</a>
+
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Start</th>
+  </thead>
+  <tbody>
+    {% for trip in trips_list %}
+      <tr>
+        <td>
+          <a href="{% url 'trip-detail' trip.id %}">{{ trip.name }}</a>
+        </td>
+        <td>
+          {{ trip.leg_set.first.start_time }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</ul>
+{% endblock %}
