@@ -1,9 +1,10 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-<h1>Edit</h1>
 
 {% include 'mileage/nav.html' %}
+
+<h1>Edit</h1>
 
 
 <a href="{% url 'trip-detail' pk=object.id %}" class="btn btn-link">Back to Trip</a>
