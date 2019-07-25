@@ -22,7 +22,7 @@ DATABASES = {
         'NAME': 'personaltools',
         'USER': 'personaltools',
         'PASSWORD': 'personaltools',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
