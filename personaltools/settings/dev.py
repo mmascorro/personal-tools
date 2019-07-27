@@ -28,3 +28,8 @@ DATABASES = {
 }
 
 SESSION_COOKIE_AGE = 31536000
+
+#django debug toolbar override for running in docker
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG
+}
