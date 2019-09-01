@@ -4,7 +4,10 @@ def get_month(month):
 
     item_types = ItemType.objects.all()
 
-    month_data = []
+    month_data = {
+        'item_types': [],
+        'month_total': 0
+    }
 
     for item_type in item_types:
 
@@ -25,6 +28,7 @@ def get_month(month):
 
         item_type_data['items'] = item_list
         item_type_data['sum'] = sum(item_list)
-        month_data.append(item_type_data)
+        month_data['month_total'] += item_type_data['sum']
+        month_data['item_types'].append(item_type_data)
 
     return month_data

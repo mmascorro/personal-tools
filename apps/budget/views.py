@@ -48,7 +48,7 @@ class MonthDetail(LoginRequiredMixin, View):
 
 
         context = {
-            'item_types': get_month(current_month),
+            'month_data': get_month(current_month),
             'year_month': year_month,
             'months': month_history
         }

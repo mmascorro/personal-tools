@@ -25,9 +25,9 @@
     </select>
     <button id="month-select-button">Change</button>
 </form>
-
+<p>Month Total: {{ month_data.month_total }}</p>
 <div class="categories">
-    {% for item_type in item_types %}
+    {% for item_type in month_data.item_types %}
     <div class="category">
         <h2>{{ item_type.name }}</h2>
         <p><b>{{ item_type.sum }}</b></p>
