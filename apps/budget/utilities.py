@@ -20,7 +20,7 @@ def get_month(month):
             item_type=item_type,
             transaction_date__year=month.strftime('%Y'),
             transaction_date__month=month.strftime('%m')
-        )
+        ).order_by('transaction_date')
 
         item_list = []
         for  i in items:
