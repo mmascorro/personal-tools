@@ -32,7 +32,7 @@
         <h2>{{ item_type.name }}</h2>
         <p><b>{{ item_type.sum }}</b></p>
         {% for item in item_type.items %}
-        <p>{{ item }}</p>
+        <p><a href="{% url 'edit-item' item.id %}">{{ item.amount }}</a></p>
         {% endfor %}
 
     </div>

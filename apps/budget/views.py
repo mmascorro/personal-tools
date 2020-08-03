@@ -55,3 +55,30 @@ class MonthDetail(LoginRequiredMixin, View):
 
     
         return render(request, 'budget/month.html', context)
+
+class EditItemView(LoginRequiredMixin, View):
+    item_types = ItemType.objects.all()
+    banks = Bank.objects.all()
+
+    context = {
+        'item_types': item_types,
+        'banks': banks
+    }
+
+    def get(self, request, pk):
+        item = Item.objects.get(pk=pk)
+        self.context['item'] = item
+        return render(request, 'budget/edit-item.html', self.context)
+
+    def post(self, request, pk):
+        item = Item.objects.get(pk=pk)
+        form = ItemForm(request.POST, instance=item)
+
+        if form.is_valid():
+            print(form.cleaned_data)
+
+            item = form.save()
+            print(item)
+            self.context['item'] = item
+
+            return render(request, 'budget/edit-item.html', self.context)

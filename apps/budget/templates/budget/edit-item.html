@@ -1,0 +1,44 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+{% block title %}Budget{% endblock %}
+{% block css %}
+<link href="{% static 'budget/css/budget.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_css %}budget home{% endblock %}
+
+{% block content %}
+
+{% include 'budget/nav.html' %}
+<h1>Edit</h1>
+<h2>{{ item.transaction_date }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <select name="item_type">
+            {% for item_type in item_types %}
+            <option value="{{ item_type.id }}" {% if item_type.id == item.item_type.id %}selected{% endif %}>{{ item_type.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="bank">
+            {% for bank in banks %}
+            <option value="{{ bank.id }}" {% if bank.id == item.bank.id %}selected{% endif %}>{{ bank.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <input type="text" name="amount" id="amount" inputmode="decimal" pattern="[0-9.-]*" value="{{ item.amount }}" required>
+
+        <button id="sign-change">+/-</button>
+    </div>
+
+
+    <input type="submit" value="Update">
+</form>
+{% endblock %}
+{% block javascript %}
+<script src="{% static 'budget/js/index.js' %}"></script>
+{% endblock %}

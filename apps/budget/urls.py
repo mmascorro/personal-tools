@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.InputView.as_view(), name='budget-home'),
     path('month/', views.MonthDetail.as_view(), name='budget-month'),
     path('month/<str:year_month>', views.MonthDetail.as_view(), name='budget-month-detail'),
+    path('item/<int:pk>', views.EditItemView.as_view(), name='edit-item'),
 ]

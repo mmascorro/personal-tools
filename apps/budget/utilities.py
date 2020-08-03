@@ -16,18 +16,24 @@ def get_month(month):
             'items': []
         }
 
-        items = Item.objects.filter(
+        item_query = Item.objects.filter(
             item_type=item_type,
             transaction_date__year=month.strftime('%Y'),
             transaction_date__month=month.strftime('%m')
         ).order_by('transaction_date')
 
-        item_list = []
-        for  i in items:
-            item_list.append(i.amount)
+        item_amounts = []
+        items = []
+        for  i in item_query:
+            item_amounts.append(i.amount)
+            item = {
+                'id': i.id,
+                'amount': i.amount
+            }
+            items.append(item)
 
-        item_type_data['items'] = item_list
-        item_type_data['sum'] = sum(item_list)
+        item_type_data['items'] = items
+        item_type_data['sum'] = sum(item_amounts)
         month_data['month_total'] += item_type_data['sum']
         month_data['item_types'].append(item_type_data)
 
