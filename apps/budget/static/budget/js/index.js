@@ -15,3 +15,22 @@ document.getElementById('sign-change').addEventListener('click', (e) => {
 
 });
 
+function debounce(delay, fn) {
+    let timeoutId;
+
+    return function (...args) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            fn(...args);
+            timeoutId = null;
+        }, delay);
+    }
+}
+
+document.getElementById('amount').addEventListener('input', debounce(500, (e) => { 
+    let amount = e.target.value;
+    amount = amount.replace(/[^\d\.-]/g, '');
+    e.target.value = amount;
+}));
