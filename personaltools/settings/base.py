@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'apps.core.apps.CoreConfig',
     'apps.budget.apps.BudgetConfig',
     'apps.mileage.apps.MileageConfig',
+    'apps.episodetracker.apps.EpisodetrackerConfig',
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,7 @@ urlpatterns = [
     path('', include('apps.core.urls')),
     path('budget/', include('apps.budget.urls')),
     path('mileage/', include('apps.mileage.urls')),
+    path('episodetracker/', include('apps.episodetracker.urls')),
 ]
 
 if settings.DEBUG:

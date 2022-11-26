@@ -1,0 +1,32 @@
+
+
+
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+{% block title %}Episode Tracker{% endblock %}
+{% block css %}
+<link href="{% static 'episodetracker/css/episodetracker.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_css %}{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<nav>
+  <ul>
+      <li><a href="{% url 'homepage' %}">home</a></li>
+  </ul>
+</nav>
+<div id="container">
+
+</div>
+
+<input type="text" name="series" id="series">
+<button id="addSeries">Add</button>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'episodetracker/js/episodetracker.js' %}"></script>
+{% endblock %}
