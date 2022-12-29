@@ -14,17 +14,16 @@
 
 {% block content %}
 {% csrf_token %}
-<nav>
-  <ul>
-      <li><a href="{% url 'homepage' %}">home</a></li>
-  </ul>
-</nav>
-<div id="container">
+{% include 'common/nav-primary.html' %}
+<div id="container" class="container">
 
 </div>
 
-<input type="text" name="series" id="series">
-<button id="addSeries">Add</button>
+<div class="container">
+  <input type="text" name="series" id="series">
+  <button id="addSeries">Add</button>
+</div>
+
 {% endblock %}
 
 {% block javascript %}

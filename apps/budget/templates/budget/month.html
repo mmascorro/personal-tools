@@ -3,40 +3,48 @@
 {% load static %}
 
 
-{% block title %}Budget{% endblock %}
+{% block title %}Budget: {{ current_year_month|date:'F Y' }}{% endblock %}
 {% block css %}
 <link href="{% static 'budget/css/budget.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block body_css %}budget home{% endblock %}
+{% block body_css %}budget detail{% endblock %}
 
 {% block content %}
 
+{% include 'common/nav-primary.html' %}
 {% include 'budget/nav.html' %}
 
-<h1>month detail</h1>
+<div class="container">
+    <h1>{{ current_year_month|date:'F Y' }}</h1>
 
-<form >
-    <select name="month" id="month-select">
-        {% for month in months %}
-        <option {% if month|date:'Y-m' == year_month %}selected{% endif %}>{{ month|date:'Y-m'}}</option>
+    <form>
+        <select name="year" id="year-select">
+            {% for year in year_list %}
+            <option {% if current_year_month.year == year %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+        <select name="month" id="month-select">
+            {% for month in month_list %}
+            <option {% if current_year_month.month == month %}selected{% endif %}>{{ month|stringformat:"02d" }}</option>
+            {% endfor %}
+        </select>
+
+        <button id="month-select-button">Change</button>
+    </form>
+    <p>Month Total: {{ month_data.month_total }}</p>
+    <div class="categories">
+        {% for item_type in month_data.item_types %}
+        <div class="category">
+            <h2>{{ item_type.name }}</h2>
+            <p><b>{{ item_type.sum }}</b></p>
+            {% for item in item_type.items %}
+            <p><a href="{% url 'edit-item' item.id %}">{{ item.amount }}</a></p>
+            {% endfor %}
+
+        </div>
         {% endfor %}
-
-    </select>
-    <button id="month-select-button">Change</button>
-</form>
-<p>Month Total: {{ month_data.month_total }}</p>
-<div class="categories">
-    {% for item_type in month_data.item_types %}
-    <div class="category">
-        <h2>{{ item_type.name }}</h2>
-        <p><b>{{ item_type.sum }}</b></p>
-        {% for item in item_type.items %}
-        <p><a href="{% url 'edit-item' item.id %}">{{ item.amount }}</a></p>
-        {% endfor %}
-
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
 
@@ -45,10 +53,11 @@
 document.getElementById('month-select-button').addEventListener('click', (e) => {
     e.preventDefault();
 
+    let selectedYear = document.getElementById('year-select').value;
     let selectedMonth = document.getElementById('month-select').value;
 
 
-    location.href = `/budget/month/${selectedMonth}`
+    location.href = `/budget/month/${selectedYear}-${selectedMonth}`
 })
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -39,18 +39,20 @@ class MonthDetail(LoginRequiredMixin, View):
 
     def get(self, request, year_month=None):
 
+        month_list = list(reversed(range(1,13)))
         month_history = Item.objects.dates('transaction_date', 'month', order='DESC')
+        year_list = list(reversed(range(month_history.last().year, date.today().year+1)))
 
         if not year_month:
-            current_month = date.today()
+            current_year_month = date.today()
         else:
-            current_month = datetime.strptime(year_month, '%Y-%m')
-
+            current_year_month = datetime.strptime(year_month, '%Y-%m')
 
         context = {
-            'month_data': get_month(current_month),
-            'year_month': year_month,
-            'months': month_history
+            'month_data': get_month(current_year_month),
+            'year_list': year_list,
+            'month_list': month_list,
+            'current_year_month': current_year_month
         }
 
     
@@ -82,3 +84,15 @@ class EditItemView(LoginRequiredMixin, View):
             self.context['item'] = item
 
             return render(request, 'budget/edit-item.html', self.context)
+
+
+class ChartView(LoginRequiredMixin, View):
+
+    def get(self, request):
+
+
+        context = {
+        }
+
+    
+        return render(request, 'budget/chart.html', context)

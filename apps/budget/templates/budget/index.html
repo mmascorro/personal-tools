@@ -11,33 +11,36 @@
 
 {% block content %}
 
+{% include 'common/nav-primary.html' %}
 {% include 'budget/nav.html' %}
 
-<form method="POST">
-    {% csrf_token %}
-    <div>
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div>
 
-        <select name="item_type">
-            {% for item_type in item_types %}
-            <option value="{{ item_type.id }}">{{ item_type.name }}</option>
-            {% endfor %}
-        </select>
-        <select name="bank">
-            {% for bank in banks %}
-            <option value="{{ bank.id }}">{{ bank.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
+            <select name="item_type">
+                {% for item_type in item_types %}
+                <option value="{{ item_type.id }}">{{ item_type.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="bank">
+                {% for bank in banks %}
+                <option value="{{ bank.id }}">{{ bank.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div>
-        <input type="text" name="amount" id="amount" inputmode="decimal" pattern="[0-9.-]*" value="-" required>
+        <div>
+            <input type="text" name="amount" id="amount" inputmode="decimal" pattern="[0-9.-]*" value="-" required>
 
-        <button id="sign-change">+/-</button>
-    </div>
+            <button id="sign-change">+/-</button>
+        </div>
 
 
-    <input type="submit" value="Save">
-</form>
+        <input type="submit" value="Save">
+    </form>
+</div>
 {% endblock %}
 {% block javascript %}
 <script src="{% static 'budget/js/index.js' %}"></script>

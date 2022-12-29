@@ -1,0 +1,27 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+
+{% block title %}Budget{% endblock %}
+{% block css %}
+<link href="{% static 'budget/css/budget.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_css %}budget chart{% endblock %}
+
+{% block content %}
+
+{% include 'common/nav-primary.html' %}
+{% include 'budget/nav.html' %}
+
+<div class="container">
+    <h1>chart</h1>
+
+
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

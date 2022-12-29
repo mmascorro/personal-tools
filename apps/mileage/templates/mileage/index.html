@@ -2,30 +2,33 @@
 
 {% block content %}
 
+{% include 'common/nav-primary.html' %}
 {% include 'mileage/nav.html' %}
 
-<h1>trips</h1>
+<div class="container">
+  <h1>trips</h1>
 
-<a href="{% url 'trip-create' %}" class="btn btn-primary">New Trip</a>
+  <a href="{% url 'trip-create' %}" class="btn btn-primary">New Trip</a>
 
-<table class="table">
-  <thead>
-    <th>Name</th>
-    <th>Start</th>
-  </thead>
-  <tbody>
-    {% for trip in trips_list %}
-      <tr>
-        <td>
-          <a href="{% url 'trip-detail' trip.id %}">{{ trip.name }}</a>
-        </td>
-        <td>
-          {{ trip.leg_set.first.start_time }}
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Start</th>
+    </thead>
+    <tbody>
+      {% for trip in trips_list %}
+        <tr>
+          <td>
+            <a href="{% url 'trip-detail' trip.id %}">{{ trip.name }}</a>
+          </td>
+          <td>
+            {{ trip.leg_set.first.start_date }}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-</ul>
+  </ul>
+</div>
 {% endblock %}
