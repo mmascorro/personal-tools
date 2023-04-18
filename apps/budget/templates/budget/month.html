@@ -1,6 +1,7 @@
 {% extends 'common/base.html' %}
 
 {% load static %}
+{% load month_nav %}
 
 
 {% block title %}Budget: {{ current_year_month|date:'F Y' }}{% endblock %}
@@ -32,7 +33,16 @@
 
         <button id="month-select-button">Change</button>
     </form>
+
+    <div class="month-nav">
+        {% prev_month current_year_month as prev_year_month %}
+        <a href="{% url 'budget-month-detail' prev_year_month %}">Previous Month</a>
+        {% next_month current_year_month as next_year_month %}
+        <a href="{% url 'budget-month-detail' next_year_month %}">Next Month</a>
+    </div>
+
     <p>Month Total: {{ month_data.month_total }}</p>
+
     <div class="categories">
         {% for item_type in month_data.item_types %}
         <div class="category">

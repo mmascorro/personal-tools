@@ -59,6 +59,10 @@ body.budget.detail form > * {
     width: 100%;
 }
 
+body.budget .month-nav {
+    padding: 5px 0px;
+}
+
 @media (min-width: 768px) {
 
     body.budget.home form {
