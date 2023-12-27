@@ -2,7 +2,7 @@
 .DS_Store
 .vscode/
 __pycache__
-./static/
+static/
 venv/
 
 personaltools/settings/production.py
