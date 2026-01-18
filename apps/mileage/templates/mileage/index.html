@@ -14,6 +14,7 @@
     <thead>
       <th>Name</th>
       <th>Start</th>
+      <th>End</th>
     </thead>
     <tbody>
       {% for trip in trips_list %}
@@ -22,7 +23,10 @@
             <a href="{% url 'trip-detail' trip.id %}">{{ trip.name }}</a>
           </td>
           <td>
-            {{ trip.leg_set.first.start_date }}
+            {{ trip.leg_set.first.start_date|date:"M d, Y" }}
+          </td>
+          <td>
+            {{ trip.leg_set.last.end_date|date:"M d, Y" }}
           </td>
         </tr>
       {% endfor %}
