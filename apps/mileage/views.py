@@ -8,6 +8,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Trip,Leg
 from .forms import TripForm, LegCreate, LegForm
+from django.db.models import Count, Min
 
 def edit_trip(request):
     return render(request, 'mileage/trip-edit.html')
@@ -17,7 +18,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     context_object_name = 'trips_list'
 
     def get_queryset(self):
-        return Trip.objects.raw("SELECT DISTINCT ON(mileage_trip.id) mileage_trip.id,mileage_leg.start_date, mileage_trip.name FROM mileage_trip LEFT OUTER JOIN mileage_leg ON (mileage_trip.id = mileage_leg.trip_id)  ORDER BY mileage_trip.id DESC, mileage_leg.start_date DESC")
+        return Trip.objects.annotate(start_min=Min('leg__start_date')).order_by('-start_min')
 
 class CreateTripView(LoginRequiredMixin, CreateView):
     form_class = TripForm
