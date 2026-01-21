@@ -27,10 +27,12 @@ class CreateTripView(LoginRequiredMixin, CreateView):
 
 
 class TripDetailView(LoginRequiredMixin, View):
+    template_name = "mileage/trip-detail.html"
     def get(self, request, pk):
         trip = Trip.objects.get(pk=pk)
+        legs = trip.leg_set.order_by('start_date')
         legForm = LegCreate
-        return render(request, 'mileage/trip-detail.html', {'trip': trip, 'form':legForm})
+        return render(request, 'mileage/trip-detail.html', {'trip': trip, 'form':legForm, 'legs':legs})
 
     def post(self, request, pk):
         trip = Trip.objects.get(pk=pk)
