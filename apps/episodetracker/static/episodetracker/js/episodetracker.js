@@ -88,9 +88,16 @@ async function buildUI() {
     showContainer.dataset.show = show.id;
     showContainer.dataset.episode = show.episode;
     
-    let showTitle = document.createElement('p');
+    let showEntry = document.createElement('p');
+    let showTitle = document.createElement('span');
+    let updatedAt = document.createElement('time');
     showTitle.innerHTML = show.name;
-    showContainer.appendChild(showTitle);
+    timestamp = new Date(Date.parse(show.updated_at));
+    updatedAt.innerHTML = timestamp.toLocaleString();
+    showEntry.appendChild(showTitle);
+    showEntry.appendChild(updatedAt);
+
+    showContainer.appendChild(showEntry);
 
     let showEpisode = document.createElement('p');
     showEpisode.classList.add('episodeNumber')
