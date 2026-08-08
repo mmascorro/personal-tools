@@ -1,4 +1,4 @@
-FROM python:3.12.3
+FROM python:3.14.4
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /app
 WORKDIR /app
